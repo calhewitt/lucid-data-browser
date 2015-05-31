@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<title>LUCID Data Browser</title>
+<script src="//use.edgefonts.net/open-sans:n3,n4,i4.js"></script>
+<script src="../static/js/moment.js"></script>
+<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
+<link rel = "stylesheet" href = "../static/css/main.css" media="screen and (min-width:769px)">
+<link rel = "stylesheet" href = "../static/css/mobile.css" media="screen and (max-width:768px)">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+<div id = "container">
+	<div id = "sidebar">
+		<div id = "title-container">
+			<div class = "title">LUCID Data Browser</div>
+		</div>
+		<div id = "menu-button" onclick = "$('#mask, #menu').fadeIn();"><img src = "../static/img/menu.svg"></div>
+		<div id = "details">
+			Frame timestamp: <span id = "timestamp"></span><br>
+			UNIX timestamp: <span id = "unix-time"></span><br>
+			Latitude: <span id = "lat"></span>&deg;<br>
+			Longitude: <span id = "lng"></span>&deg;
+		</div>
+		<div id = "tracking-button" onclick = "window.location = 'tracking.php';">Track LUCID</div>
+		<div id = "map">
+			<img id = "lucid-icon" src = "../static/img/lucid.jpg">
+		</div>
+	</div>
+	<div id = "data"><div id = "data-inner">
+		<div class = "frame" id = "tpx0"><img/><div class = "download">
+			<div class = "download-mask"></div>
+			<div class = "download-content">
+				<a href = "#" onclick = "enlarge('0')">Enlarge</a><br><br><hr><br>
+				<span>Download as: </span><br><a href = "#" onclick = "png_dl('0')">PNG</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#" onclick = "xyc_dl('0')">XYC</a>
+			</div>
+		</div></div>
+		<div class = "frame" id = "tpx1"><img/><div class = "download">
+			<div class = "download-mask"></div>
+			<div class = "download-content">
+				<a href = "#" onclick = "enlarge('1')">Enlarge</a><br><br><hr><br>
+				<span>Download as: </span><br><a href = "#" onclick = "png_dl('1')">PNG</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#" onclick = "xyc_dl('1')">XYC</a>
+			</div>
+		</div></div>
+		<div class = "frame" id = "tpx3"><img/><div class = "download">
+			<div class = "download-mask"></div>
+			<div class = "download-content">
+				<a href = "#" onclick = "enlarge('3')">Enlarge</a><br><br><hr><br>
+				<span>Download as: </span><br><a href = "#" onclick = "png_dl('3')">PNG</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#" onclick = "xyc_dl('3')">XYC</a>
+			</div>
+		</div></div>
+		<div class = "label">TPX0</div>
+		<div class = "label">TPX1</div>
+		<div class = "label">TPX3</div>
+	</div></div>
+	<div id = "frame-indicator">Frame <span id = "current-frame"></span> of {{ num_frames }}</div>
+
+	<div id = "back-button" class = "button" onclick = "loadFrame(currentFrame - 1);"><img src = "../static/img/back.svg"></div>
+	<div id = "forward-button" class = "button" onclick = "loadFrame(currentFrame + 1);"><img src = "../static/img/forward.svg"></div>
+</div>
+
+<div id = "mask" onclick = "$('#mask, #loading,  #menu').fadeOut();"></div>
+<div id = "menu">
+	<div class = "title">
+		<img src = "../static/img/back-dark.svg" onclick = "$('#mask, #menu').fadeOut();">
+		Find Data
+	</div>
+	<ul>
+		<div>
+			Data Runs
+		</div>
+		{% for run in runs %}
+		<li class = "run-link rl-{{run}}">{{ run }}</li>
+		{% endfor %}
+	</ul>
+	<div id = "table-container">
+	<table>
+		<tr id = "data-titles"><td>Date &amp; Time</td><td>Config</td><td>Latitude</td><td>Longitude</td></tr>
+		{% for file in data_files %}
+		<tr class = "data-row {{ file.run }}" onclick = "window.location = '{{ file.id }}'"><td>{{ file.date }}</td><td>{{ file.config }}</td><td>{{ file.latitude }}</td><td>{{ file.longitude }}</td></tr>
+		{% endfor %}
+	</table>
+	</div>
+</div>
+
+<script>
+metadata = ""
+// Query the metadata page for the current dataset and load all details...
+$.ajax({
+	url: "get/file_details?id={{ id }}",
+    success: function(result) { 
+    	metadata = result.split("\n") 
+    }, async: false
+});  
+
+currentFrame = 0;
+
+function loadFrame(id) {
+	if (id > 0 && id <= {{ num_frames }}) {
+		currentFrame = id;
+		$("#tpx0 img").attr("src", "get/frame_image?run={{run}}&file_id={{id}}&frame=" + id + "&channel=0");
+        $("#tpx1 img").attr("src", "get/frame_image?run={{run}}&file_id={{id}}&frame=" + id + "&channel=1");
+        $("#tpx3 img").attr("src", "get/frame_image?run={{run}}&file_id={{id}}&frame=" + id + "&channel=3");
+
+		var meta = metadata[id - 1];
+		var metafields = meta.split(" ");
+		var unixTime = metafields[1];
+		var timestamp = moment(unixTime, "X").format("DD/MM/YYYY HH:mm.ss");
+		var lat = Math.round(metafields[2] * 100) / 100; // hack for 2dp
+		var lng = Math.round(metafields[3] * 100) / 100;
+
+		//Place map marker in correct position
+		$("#lucid-icon").css({"top": 90 - Math.round(lat), "left": Math.round(lng) + 180});
+		// Update fields
+		$("#timestamp").text(timestamp);
+		$("#unix-time").text(unixTime);
+		$("#lat").text(lat);
+		$("#lng").text(lng);
+
+		$("#current-frame").text(id);
+
+		//Push frame id to history API
+		window.history.replaceState( {} , 'foo', '?frame=' + id);
+	}
+}
+
+loadFrame({{frame}});
+
+$(document).keydown(function(e) {
+    switch(e.which) {
+        case 37: // left
+        	loadFrame(currentFrame - 1);
+        break;
+
+        case 39: // right
+        	loadFrame(currentFrame + 1);
+        break;
+
+        default: return;
+    }
+    e.preventDefault();
+});
+
+function showMenu() {
+	$("#mask").fadeIn();
+	$("#menu").fadeIn();
+}
+
+function loadFile(file) {
+	filterText = $("#files-filter").val();
+	window.location = "./?id=" + file + "&filtertext=" + filterText;
+}
+
+function xyc_dl(channel) {
+	run = "<?php print getRun($id.substr(0, 10)); ?>";
+	window.location = "xyc/" + run + "/<?php print $id; ?>/frame" + currentFrame + "/c" + channel + ".txt"; 
+}
+
+function png_dl(channel) {
+	window.location = "download-frame.php?datafile=<?php print $id; ?>&frame=" + currentFrame + "&channel=" + channel;
+}
+
+// Set up data menu
+function menuShowRun(run) {
+	$(".data-row").hide()
+	$("." + run).show()
+	$(".run-link").css("background-color", "#dddddd")
+	$(".rl-" + run).css("background-color", "#bbbbbb")
+}
+
+$(".run-link").click(function() {
+	menuShowRun($(this).text())
+})
+
+menuShowRun("{{ run }}")
+
+</script>

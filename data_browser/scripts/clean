@@ -1,0 +1,5 @@
+#!/bin/bash
+
+rm -r ../xyc/*
+rm ../../data_browser.db
+cp ../../database_template.db ../../data_browser.db
