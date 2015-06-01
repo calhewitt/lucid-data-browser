@@ -1,3 +1,4 @@
+set ssl:verify-certificate no
 open ftp3.sstl.co.uk
 login lucid supersecretpassword
 
