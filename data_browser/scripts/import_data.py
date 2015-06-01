@@ -28,7 +28,7 @@ try:
 			# Check whether the file follows the naming format
 			if sfile[0:5] == "T1_LU":
 				files.append(root + "/" + sfile)
-	print files
+	#print files
 
 except:
 	# The folder doesn't exist

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if python download-setup.py $1 $2 
+then
+lftp -f /tmp/sstl-download.x
+python ~/workspace/data_browser/scripts/import_data.py $(pwd)/LUCID
+fi

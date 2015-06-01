@@ -1,10 +1,11 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django import template
 import os
 from django.db import connection
 from datetime import date, datetime, timedelta
 from lucid_utils import xycreader, frameplot
 import numpy as np
+from operator import itemgetter
 
 def error4oh4(request):
 	return HttpResponse("That data file could not be found!")
@@ -38,6 +39,8 @@ def get_runs():
 		if not file_dict["run"] in runs:
 			runs.append(file_dict["run"])
 		data_files.append(file_dict)
+	runs = sorted(runs)
+	data_files = sorted(data_files, key=itemgetter('filename'))
 	return data_files, runs
 
 def main(request):
@@ -118,5 +121,9 @@ def frame_image(request):
 		return response
 		
 def root(request):
-	# Redirect to landing file
-	return HttpResponse("wow")
+	# Find the id of the first data file
+	c = connection.cursor()
+	c.execute("SELECT * FROM data_files")
+	row = c.fetchone()
+	file_id = row[0]
+	return HttpResponseRedirect("view/"+ str(file_id))
