@@ -100,6 +100,10 @@
 	margin-left: 20px;
 }
 
+#data::-webkit-scrollbar { 
+    display: none; 
+}
+
 .frame {
 	width: 256px;
 	height: 256px;
