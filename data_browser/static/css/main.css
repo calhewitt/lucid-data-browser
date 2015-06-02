@@ -263,7 +263,7 @@ a {
 
 #menu #table-container {
 	overflow-x: hidden;
-	overflow-y: scroll;
+	overflow-y: auto;
 	position: absolute;
 	top: 180px;
 	left: 190px;
@@ -273,7 +273,7 @@ a {
 
 #menu #headers {
 	overflow-x: hidden;
-	overflow-y: scroll;
+	overflow-y: auto;
 	position: absolute;
 	top: 130px;
 	left: 190px;
@@ -321,7 +321,7 @@ a {
 	padding: 0;
 	font-family: open-sans;
 	height: calc(100% - 130px);
-	overflow-y: scroll;
+	overflow-y: auto;
 	overflow-x: hidden;
 	z-index: 500;
 }
