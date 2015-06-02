@@ -4,6 +4,7 @@
 <script src="//use.edgefonts.net/open-sans:n3,n4,i4.js"></script>
 <script src="../static/js/moment.js"></script>
 <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
+<meta name="theme-color" content="#c62828">
 <link rel = "stylesheet" href = "../static/css/main.css" media="screen and (min-width:769px)">
 <link rel = "stylesheet" href = "../static/css/mobile.css" media="screen and (max-width:768px)">
 
@@ -175,6 +176,8 @@ $(".run-link").click(function() {
 
 menuShowRun("{{ run }}")
 
+ORIGINAL_LEFT = $("#menu").css("left")
+
 function showMenu() {
 	$('#mask').fadeIn()
 	$("#menu").css("transition", "500ms ease-out")
@@ -184,7 +187,7 @@ function showMenu() {
 function hideMenu() {
 	$('#mask').fadeOut()
 	$("#menu").css("transition", "500ms ease-in")
-	$("#menu").css("left", "-900px")
+	$("#menu").css("left", "-100%")
 }
 
 // Give current file a different background

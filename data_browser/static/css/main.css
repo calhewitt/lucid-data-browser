@@ -243,7 +243,7 @@ a {
 #menu {
 	position: fixed;
 	top: 0px;
-	left: -900px;
+	left: -100%;
 	width: 800px;
 	height: 100%;
 	background-color: #eeeeee;
