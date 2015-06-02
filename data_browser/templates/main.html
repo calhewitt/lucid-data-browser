@@ -78,7 +78,7 @@
 	<div id = "table-container">
 	<table id = "content" cellspacing = 0>
 		{% for file in data_files %}
-		<tr class = "data-row {{ file.run }}" onclick = "window.location = '{{ file.id }}'"><td>{{ file.date }}</td><td>{{ file.config }}</td><td>{{ file.latitude }}</td><td>{{ file.longitude }}</td></tr>
+		<tr class = "data-row {{ file.run }} {{ file.id }}" onclick = "window.location = '{{ file.id }}'"><td>{{ file.date }}</td><td>{{ file.config }}</td><td>{{ file.latitude }}</td><td>{{ file.longitude }}</td></tr>
 		{% endfor %}
 	</table>
 	</div>
@@ -186,5 +186,9 @@ function hideMenu() {
 	$("#menu").css("transition", "500ms ease-in")
 	$("#menu").css("left", "-900px")
 }
+
+// Give current file a different background
+$(".{{id}}").css("background", "#444444")
+$(".{{id}}").css("color", "#ffffff")
 
 </script>
