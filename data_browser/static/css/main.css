@@ -198,7 +198,7 @@ a {
 	left: 50%;
 	width: 400px;
 	margin-left: -10px;
-	margin-top: 230px;
+	margin-top: 190px;
 	text-align: center;
 	font-family: open-sans;
 	font-weight: 300;
@@ -212,7 +212,7 @@ a {
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	margin-top: 235px;
+	margin-top: 197px;
 	cursor: pointer;
 }
 
@@ -243,11 +243,13 @@ a {
 #menu {
 	position: fixed;
 	top: 0px;
-	left: 0px;
-	width: 100%;
+	left: -900px;
+	width: 800px;
 	height: 100%;
 	background-color: #eeeeee;
-	display: none;
+	-webkit-box-shadow: 10px 0px 12px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 10px 0px 12px 0px rgba(0,0,0,0.75);
+	box-shadow: 10px 0px 12px 0px rgba(0,0,0,0.75);
 }
 
 #menu .title img {
@@ -262,16 +264,32 @@ a {
 #menu #table-container {
 	overflow-x: hidden;
 	overflow-y: scroll;
-	position: fixed;
+	position: absolute;
+	top: 180px;
+	left: 190px;
+	width: 610px;
+	height: calc(100% - 180px);
+}
+
+#menu #headers {
+	overflow-x: hidden;
+	overflow-y: scroll;
+	position: absolute;
 	top: 130px;
-	left: 300px;
-	width: calc(100% - 300px);
-	height: calc(100% - 130px);
+	left: 190px;
+	height: 30px;
+	-webkit-box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.3);
+	-moz-box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.3);
+	box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.3);
+}
+
+#menu td {
+	width: 25%;
 }
 
 #menu table {
 	font-family: open-sans;
-	width: 100%;
+	width: 610px;
 }
 
 #menu table td {
@@ -282,6 +300,7 @@ a {
 	height: 30px;
 	line-height: 30px;
 	background-color: #ffffff;
+	font-weight: bold;
 }
 
 .data-row {
@@ -293,10 +312,10 @@ a {
 }
 
 #menu ul {
-	position: fixed;
+	position: absolute;
 	top: 130px;
 	left: 0px;
-	width: 300px;
+	width: 190px;
 	background-color: #dddddd;
 	margin: 0;
 	padding: 0;
@@ -304,6 +323,7 @@ a {
 	height: calc(100% - 130px);
 	overflow-y: scroll;
 	overflow-x: hidden;
+	z-index: 500;
 }
 
 #menu ul div {

@@ -14,7 +14,7 @@
 		<div id = "title-container">
 			<div class = "title">LUCID Data Browser</div>
 		</div>
-		<div id = "menu-button" onclick = "$('#mask, #menu').fadeIn();"><img src = "../static/img/menu.svg"></div>
+		<div id = "menu-button" onclick = "showMenu()"><img src = "../static/img/menu.svg"></div>
 		<div id = "details">
 			Frame timestamp: <span id = "timestamp"></span><br>
 			UNIX timestamp: <span id = "unix-time"></span><br>
@@ -58,10 +58,10 @@
 	<div id = "forward-button" class = "button" onclick = "loadFrame(currentFrame + 1);"><img src = "../static/img/forward.svg"></div>
 </div>
 
-<div id = "mask" onclick = "$('#mask, #loading,  #menu').fadeOut();"></div>
+<div id = "mask" onclick = "hideMenu()"></div>
 <div id = "menu">
 	<div class = "title">
-		<img src = "../static/img/back-dark.svg" onclick = "$('#mask, #menu').fadeOut();">
+		<img src = "../static/img/back-dark.svg" onclick = "hideMenu()">
 		Find Data
 	</div>
 	<ul>
@@ -72,9 +72,11 @@
 		<li class = "run-link rl-{{run}}">{{ run }}</li>
 		{% endfor %}
 	</ul>
-	<div id = "table-container">
-	<table>
+	<table id = "headers" cellspacing = 0>
 		<tr id = "data-titles"><td>Date &amp; Time</td><td>Config</td><td>Latitude</td><td>Longitude</td></tr>
+	</table>
+	<div id = "table-container">
+	<table id = "content" cellspacing = 0>
 		{% for file in data_files %}
 		<tr class = "data-row {{ file.run }}" onclick = "window.location = '{{ file.id }}'"><td>{{ file.date }}</td><td>{{ file.config }}</td><td>{{ file.latitude }}</td><td>{{ file.longitude }}</td></tr>
 		{% endfor %}
@@ -172,5 +174,17 @@ $(".run-link").click(function() {
 })
 
 menuShowRun("{{ run }}")
+
+function showMenu() {
+	$('#mask').fadeIn()
+	$("#menu").css("transition", "500ms ease-out")
+	$("#menu").css("left", "0px")
+}
+
+function hideMenu() {
+	$('#mask').fadeOut()
+	$("#menu").css("transition", "500ms ease-in")
+	$("#menu").css("left", "-900px")
+}
 
 </script>
