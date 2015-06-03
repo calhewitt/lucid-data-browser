@@ -31,22 +31,28 @@
 		<div class = "frame" id = "tpx0"><img/><div class = "download">
 			<div class = "download-mask"></div>
 			<div class = "download-content">
-				<a href = "#" onclick = "enlarge('0')">Enlarge</a><br><br><hr><br>
-				<span>Download as: </span><br><a href = "#" onclick = "png_dl('0')">PNG</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#" onclick = "xyc_dl('0')">XYC</a>
+				<a href = "#" data-base-href = "get/frame_image?run={{run}}&file_id={{id}}&frame=[id]&channel=0&size=512&nopreproc=1" class = "dl-link">Enlarge</a><br><br><hr><br>
+				<span>View</span><br>
+				<a href = "#" data-base-href = "get/frame_image?run={{run}}&file_id={{id}}&frame=[id]&channel=0" class = "dl-link">PNG</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href = "#" data-base-href = "get/xyc?run={{run}}&file_id={{id}}&frame=[id]&channel=0" class = "dl-link">XYC</a>
 			</div>
 		</div></div>
 		<div class = "frame" id = "tpx1"><img/><div class = "download">
 			<div class = "download-mask"></div>
 			<div class = "download-content">
-				<a href = "#" onclick = "enlarge('1')">Enlarge</a><br><br><hr><br>
-				<span>Download as: </span><br><a href = "#" onclick = "png_dl('1')">PNG</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#" onclick = "xyc_dl('1')">XYC</a>
+				<a href = "#" data-base-href = "get/frame_image?run={{run}}&file_id={{id}}&frame=[id]&channel=1&size=512&nopreproc=1" class = "dl-link">Enlarge</a><br><br><hr><br>
+				<span>View</span><br>
+				<a href = "#" data-base-href = "get/frame_image?run={{run}}&file_id={{id}}&frame=[id]&channel=1" class = "dl-link">PNG</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href = "#" data-base-href = "get/xyc?run={{run}}&file_id={{id}}&frame=[id]&channel=1" class = "dl-link">XYC</a>
 			</div>
 		</div></div>
 		<div class = "frame" id = "tpx3"><img/><div class = "download">
 			<div class = "download-mask"></div>
 			<div class = "download-content">
-				<a href = "#" onclick = "enlarge('3')">Enlarge</a><br><br><hr><br>
-				<span>Download as: </span><br><a href = "#" onclick = "png_dl('3')">PNG</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href = "#" onclick = "xyc_dl('3')">XYC</a>
+				<a href = "#" data-base-href = "get/frame_image?run={{run}}&file_id={{id}}&frame=[id]&channel=3&size=512&nopreproc=1" class = "dl-link">Enlarge</a><br><br><hr><br>
+				<span>View</span><br>
+				<a href = "#" data-base-href = "get/frame_image?run={{run}}&file_id={{id}}&frame=[id]&channel=3" class = "dl-link">PNG</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href = "#" data-base-href = "get/xyc?run={{run}}&file_id={{id}}&frame=[id]&channel=3" class = "dl-link">XYC</a>
 			</div>
 		</div></div>
 		<div class = "label">TPX0</div>
@@ -123,6 +129,13 @@ function loadFrame(id) {
 
 		//Push frame id to history API
 		window.history.replaceState( {} , 'foo', '?frame=' + id);
+		
+		// Set the frame download links to point to the right place
+		$(".dl-link").each(function() {
+			base = $(this).attr("data-base-href")
+			base = base.replace("[id]", id)
+			$(this).attr("href", base)
+		})
 	}
 }
 
@@ -146,20 +159,6 @@ $(document).keydown(function(e) {
 function showMenu() {
 	$("#mask").fadeIn();
 	$("#menu").fadeIn();
-}
-
-function loadFile(file) {
-	filterText = $("#files-filter").val();
-	window.location = "./?id=" + file + "&filtertext=" + filterText;
-}
-
-function xyc_dl(channel) {
-	run = "<?php print getRun($id.substr(0, 10)); ?>";
-	window.location = "xyc/" + run + "/<?php print $id; ?>/frame" + currentFrame + "/c" + channel + ".txt"; 
-}
-
-function png_dl(channel) {
-	window.location = "download-frame.php?datafile=<?php print $id; ?>&frame=" + currentFrame + "&channel=" + channel;
 }
 
 // Set up data menu

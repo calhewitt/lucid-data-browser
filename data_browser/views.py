@@ -27,6 +27,7 @@ def get_runs():
 	data_files = []
 	runs = []
 	for row in rows:
+		# Extract each field from the appropriate position in the row
 		file_dict = {}
 		file_dict["id"] = row[0]
 		file_dict["filename"] = row[1]
@@ -76,6 +77,8 @@ def main(request):
 	return HttpResponse(t.render(c))
 	
 def file_details(request):
+	# This returns the details in the format supported by older versions...
+	# Illogical but works, probably worth changing at some point
 	return_str = ""
 	id = request.GET["id"]
 	c = connection.cursor()
@@ -91,7 +94,7 @@ def file_details(request):
 	
 def frame_image(request):
 	use_preprocess = True
-	if use_preprocess:
+	if not "nopreproc" in request.GET.keys():
 		# Get the appropriate data fields from the GET requests
 		try:
 			file_id, run, frame, channel = request.GET['file_id'].zfill(10), request.GET['run'], request.GET['frame'], request.GET['channel']
@@ -117,8 +120,22 @@ def frame_image(request):
 		# Convert the XYC data to an image and pipe it out
 		img = frameplot.get_image(data, "RGB")
 		response = HttpResponse(content_type="image/png")
+		if "size" in request.GET.keys():
+			size = request.GET["size"]
+			img = img.resize((int(size), int(size)))
 		img.save(response, "PNG")
 		return response
+		
+def get_xyc(request):
+	# Locate the appropriate XYC text files
+	# Get the appropriate data fields from the GET requests
+	try:
+		file_id, run, frame, channel = request.GET['file_id'].zfill(10), request.GET['run'], request.GET['frame'], request.GET['channel']
+	except:
+		# Some parameters could be missing...
+		return HttpResponse("ERROR: Incorrect parameters supplied")
+	filename = os.path.dirname(os.path.abspath(__file__)) + "/xyc/" + run + "/" + file_id + "/frame" + frame + "c" + channel + ".txt"
+	return HttpResponse(open(filename).read(), content_type='text/plain')
 		
 def root(request):
 	# Find the id of the first data file
