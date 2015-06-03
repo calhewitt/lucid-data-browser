@@ -182,12 +182,14 @@ function showMenu() {
 	$('#mask').fadeIn()
 	$("#menu").css("transition", "500ms ease-out")
 	$("#menu").css("left", "0px")
+	$("body").css("overflow", "hidden")
 }
 
 function hideMenu() {
 	$('#mask').fadeOut()
 	$("#menu").css("transition", "500ms ease-in")
 	$("#menu").css("left", "-100%")
+	$("body").css("overflow", "auto")
 }
 
 // Give current file a different background
