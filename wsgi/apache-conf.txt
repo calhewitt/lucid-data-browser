@@ -1,5 +1,5 @@
         Alias /data-browser-python/static /var/www/html/data-browser-python/data_browser/static
-        WSGIScriptAlias /data-browser-python /var/www/html/data-browser-python/data_browser.wsgi
+        WSGIScriptAlias /data-browser-python /var/www/html/data-browser-python/wgsi/data_browser.wsgi
 
         <Directory /var/www/html/data-browser-python/>
                 Order allow,deny
