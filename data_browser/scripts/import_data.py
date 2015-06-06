@@ -63,7 +63,7 @@ for filename in files:
 	first_frame = True
 	first_timestamp = 0
 	# Loop through each frame and write it to a text file
-	for i in range(lf.num_frames):
+	for i in range(lf.num_frames - 1):
 		print "\tProcessing frame", i
 		frame = lf.get_frame(i)
 		if first_frame:

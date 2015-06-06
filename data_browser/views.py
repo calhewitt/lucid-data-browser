@@ -1,11 +1,13 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django import template
-import os
 from django.db import connection
+import os
 from datetime import date, datetime, timedelta
 from lucid_utils import xycreader, frameplot
 import numpy as np
 from operator import itemgetter
+import sqlite3
+
 
 def error4oh4(request):
 	return HttpResponse("That data file could not be found!")
@@ -48,7 +50,7 @@ def main(request):
 	# Initialise render dictionary
 	page_vars = {}
 	# Parse out the data filename and frame number
-	file_id = request.path[6:] # Get rid of beginning slash
+	file_id = request.path.split("/")[-1] # Get rid of beginning slash
 	page_vars["id"] = file_id
 	# Get the details of the file from the database
 	c = connection.cursor()
