@@ -43,6 +43,7 @@ def get_runs():
 			runs.append(file_dict["run"])
 		data_files.append(file_dict)
 	runs = sorted(runs)
+	runs.reverse() # Display newest data runs first
 	data_files = sorted(data_files, key=itemgetter('filename'))
 	return data_files, runs
 
