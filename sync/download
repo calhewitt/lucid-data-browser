@@ -3,5 +3,5 @@
 if python download-setup.py $1 $2 
 then
 lftp -f /tmp/sstl-download.x
-python ~/workspace/data_browser/scripts/import_data.py $(pwd)/LUCID
+python /var/www/lucid-data-browser/data_browser/scripts/import_data.py /var/www/lucid-data-browser/sync/LUCID
 fi
