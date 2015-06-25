@@ -62,7 +62,7 @@ def main(request):
 		return error4oh4(request)
 	# And put them in the dictionary of values to be returned
 	page_vars["run"] = row[8]
-	page_vars["num_frames"] = row[7]
+	page_vars["num_frames"] = row[7] - 1
 	
 	# Check whether the user has specified a frame number
 	if "frame" in request.GET:
