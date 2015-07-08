@@ -1,4 +1,4 @@
 sync/download-template.x
-sync/LUCID/*
-data_browser/xyc/*
+sync/LUCID
+data_browser/xyc
 data_browser.db
