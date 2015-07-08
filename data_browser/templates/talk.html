@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<script src="//use.edgefonts.net/open-sans:n3,n4,i4.js"></script>
+<script src="../static/js/moment.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+<link rel = "stylesheet" href = "../static/css/talk.css">
+<title>Talk: LUCID Data Browser</title>
+
+<div id = "title">
+LUCID Data Browser: Talk
+</div>
+
+<div id = "container">
+  {% for message in messages %}
+  <div class = "talk-message">
+    <div class = "timestamp">{{message.0}}</div>
+    <div class = "name">
+      {{ message.1 }}
+    </div>
+    <div class = "message">
+      {{ message.4 }}
+    </div>
+    <div class = "frame">
+      <a href = "../view/{{message.2}}?frame={{message.3}}">
+        <img src = "../view/get/frame_image?run={{message.5}}&file_id={{message.2}}&frame={{message.3}}&channel=0">
+        <img src = "../view/get/frame_image?run={{message.5}}&file_id={{message.2}}&frame={{message.3}}&channel=1">
+        <img src = "../view/get/frame_image?run={{message.5}}&file_id={{message.2}}&frame={{message.3}}&channel=3">
+      </a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<script>
+$(".timestamp").each(function() {
+  ts = $(this).text()
+  ts = moment(ts, "X").format("DD/MM/YYYY HH:mm.ss");
+  $(this).text(ts)
+})
+</script>

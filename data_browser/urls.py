@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from data_browser import lucid_tracking, api, views
+from data_browser import lucid_tracking, api, views, talk
 
 urlpatterns = patterns('',
     # Examples:
@@ -17,10 +17,9 @@ urlpatterns = patterns('',
     url(r'tracking/get/position$', lucid_tracking.get_position),
     url(r'tracking/get/line$', lucid_tracking.get_line),
     url(r'tracking', lucid_tracking.main),
+    # Talk pages
+    url(r'talk/submit', talk.submit),
+    url(r'talk', talk.main),
     # Default landing page
     url(r'$', views.root)
 )
-
-
-
-

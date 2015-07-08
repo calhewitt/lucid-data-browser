@@ -25,6 +25,19 @@
 			Latitude: <span id = "lat"></span>&deg;<br>
 			Longitude: <span id = "lng"></span>&deg;
 		</div>
+		<div id = "talk-submit">
+			<form action = "../talk/submit" method = "GET" autocomplete = "off">
+				<div id = "talk-title" onclick = "$('#talk-hidden').toggle('fast')">Talk about this frame</div>
+				<div id = "talk-hidden">
+					<input type = "text" name = "user" placeholder = "Name"/><br>
+					<textarea name = "message" placeholder = "Comment"></textarea><br>
+					<input type = "hidden" name = "file" value = "{{ id }}"/>
+					<input type = "hidden" name = "frame" value = "0" id = "talk-submit-frame-input"/>
+					<input type = "hidden" name = "run" value = "{{run}}" />
+					<input type = "submit" value = "Send"/>
+				</div>
+			</form>
+		</div>
 		<div id = "tracking-button" onclick = "window.location = '../tracking';">Track LUCID</div>
 		<div id = "map">
 			<img id = "lucid-icon" src = "../static/img/lucid.jpg">
@@ -99,10 +112,10 @@ metadata = ""
 // Query the metadata page for the current dataset and load all details...
 $.ajax({
 	url: "get/file_details?id={{ id }}",
-    success: function(result) { 
-    	metadata = result.split("\n") 
+    success: function(result) {
+    	metadata = result.split("\n")
     }, async: false
-});  
+});
 
 currentFrame = 0;
 
@@ -132,13 +145,16 @@ function loadFrame(id) {
 
 		//Push frame id to history API
 		window.history.replaceState( {} , 'foo', '?frame=' + id);
-		
+
 		// Set the frame download links to point to the right place
 		$(".dl-link").each(function() {
 			base = $(this).attr("data-base-href")
 			base = base.replace("[id]", id)
 			$(this).attr("href", base)
 		})
+
+		// Set the interesting form to point to the right place
+		$("#talk-submit-frame-input").attr("value", id)
 	}
 }
 

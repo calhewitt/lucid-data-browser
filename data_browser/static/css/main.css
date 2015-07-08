@@ -1,3 +1,7 @@
+* {
+	font-family: open-sans;
+}
+
 a {
 	color: #333333;
 }
@@ -58,7 +62,7 @@ a {
 	left: 0px;
 	background-color: #eeeeee;
 	width: 380px;
-	height: 130px; 	
+	height: 130px;
 }
 
 .title {
@@ -162,7 +166,7 @@ a {
 }
 
 .download-content span {
-	font-size: 17px;	
+	font-size: 17px;
 }
 
 .download-content a {
@@ -186,7 +190,7 @@ a {
 	font-family: open-sans;
 	font-weight: 300;
 	text-align: center;
-	margin-top: 10px; 
+	margin-top: 10px;
 	font-size: 16pt;
 	float: left;
 	margin-right: 20px;
@@ -341,4 +345,71 @@ a {
 	height: 30px;
 	padding-left: 10px;
 	line-height: 30px;
+}
+
+#talk-submit {
+	position: fixed;
+	top: 280px;
+	left: 10px;
+}
+
+#talk-submit #talk-title {
+	font-weight: 300;
+	text-align: center;
+	font-size: 18px;
+	width: 250px;
+	height: 40px;
+	border-radius: 5px;
+	color: #333333;
+	text-align: center;
+	line-height: 40px;
+	font-family: open-sans;
+	background: #f2f2f2;
+	cursor: pointer;
+	margin-left: 55px;
+}
+
+#talk-submit #talk-title:hover {
+	background-color: #dddddd;
+}
+
+#talk-submit input[type=text] {
+	width: 340px;
+	border: none;
+	outline: none;
+	padding-left: 10px;
+	padding-right: 10px;
+	background: #cccccc;
+	height: 40px;
+	margin-top: 10px
+}
+
+#talk-submit textarea {
+	width: 360px;
+	height: 80px;
+	background: #cccccc;
+	font-family: open-sans;
+	border: none;
+	outline: none;
+	margin-top: 10px;
+	resize: none;
+}
+
+#talk-submit input[type=submit] {
+	width: 100px;
+	margin-left: 130px;
+	margin-top 5px;
+	background: #cccccc;
+	border: none;
+	outline: none;
+	height: 30px;
+	cursor: pointer;
+}
+
+#talk-submit input[type=submit]:hover {
+	background: #aaaaaa;
+}
+
+#talk-hidden {
+	display: none;
 }

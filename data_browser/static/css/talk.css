@@ -1,0 +1,40 @@
+#title {
+  position: absolute;
+  top: 30px;
+  left: 20px;
+  font-family: open-sans;
+  font-size: 50px;
+  font-weight: 300;
+}
+
+#container {
+  position: absolute;
+  top: 180px;
+  width: 800px;
+  left: 50%;
+  margin-left: -400px;
+}
+
+.talk-message {
+  width: 800px;
+  font-family: open-sans;
+  height: 400px;
+}
+
+.talk-message img {
+  margin-top: 10px;
+  margin-right: 10px;
+  float: left;
+}
+
+.timestamp {
+  width: 800px;
+  text-align: right;
+  color: #888888;
+}
+
+.name {
+  font-weight: 300;
+  font-size: 30px;
+  margin-top: -30px;
+}

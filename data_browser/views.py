@@ -18,9 +18,9 @@ def get_run(dt):
 	diff = date_obj - date(2014, 12, 19)
 	diff = diff.days % 8
 	new_date = date_obj - timedelta(days=diff)
-	#print new_date	
+	#print new_date
 	return new_date.strftime("%Y-%m-%d")
-	
+
 def get_runs():
 	# Grab a list of runs with their corresponding datasets from the database
 	c = connection.cursor()
@@ -63,7 +63,7 @@ def main(request):
 	# And put them in the dictionary of values to be returned
 	page_vars["run"] = row[8]
 	page_vars["num_frames"] = row[7] - 1
-	
+
 	# Check whether the user has specified a frame number
 	if "frame" in request.GET:
 		try:
@@ -78,7 +78,7 @@ def main(request):
 	t = template.Template(open(os.path.dirname(os.path.abspath(__file__)) + "/templates/main.html").read())
 	c = template.Context(page_vars)
 	return HttpResponse(t.render(c))
-	
+
 def file_details(request):
 	# This returns the details in the format supported by older versions...
 	# Illogical but works, probably worth changing at some point
@@ -92,9 +92,9 @@ def file_details(request):
 	for row in c.fetchall():
 		return_str += str(row[2]) + " " + str(row[0]) + " " + str(row[3]) + " " + str(row[4]) + "\n"
 	return_str = return_str[:-1]
-	
+
 	return HttpResponse(return_str, content_type='text/plain')
-	
+
 def frame_image(request):
 	use_preprocess = True
 	if not "nopreproc" in request.GET.keys():
@@ -128,7 +128,7 @@ def frame_image(request):
 			img = img.resize((int(size), int(size)))
 		img.save(response, "PNG")
 		return response
-		
+
 def get_xyc(request):
 	# Locate the appropriate XYC text files
 	# Get the appropriate data fields from the GET requests
@@ -139,7 +139,7 @@ def get_xyc(request):
 		return HttpResponse("ERROR: Incorrect parameters supplied")
 	filename = os.path.dirname(os.path.abspath(__file__)) + "/xyc/" + run + "/" + file_id + "/frame" + frame + "c" + channel + ".txt"
 	return HttpResponse(open(filename).read(), content_type='text/plain')
-		
+
 def root(request):
 	# Find the id of the first data file
 	c = connection.cursor()

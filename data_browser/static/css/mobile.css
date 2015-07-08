@@ -42,7 +42,7 @@
 	left: 0px;
 	background-color: #eeeeee;
 	width: 100%;
-	height: 130px; 	
+	height: 130px;
 }
 
 .title {
@@ -100,8 +100,8 @@
 	margin-left: 20px;
 }
 
-#data::-webkit-scrollbar { 
-    display: none; 
+#data::-webkit-scrollbar {
+    display: none;
 }
 
 .frame {
@@ -137,7 +137,7 @@
 }
 
 .download-content span {
-	font-size: 17px;	
+	font-size: 17px;
 }
 
 .download-content a {
@@ -161,7 +161,7 @@
 	font-family: open-sans;
 	font-weight: 300;
 	text-align: center;
-	margin-top: 10px; 
+	margin-top: 10px;
 	font-size: 14pt;
 	float: left;
 	margin-right: 20px;
@@ -306,4 +306,8 @@
 	height: 30px;
 	padding-left: 10px;
 	line-height: 30px;
+}
+
+#talk-submit {
+	display: none;	
 }
