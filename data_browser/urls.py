@@ -13,6 +13,8 @@ urlpatterns = patterns('',
     # API
     url(r'api/get/frames', api.get_frames),
     url(r'api/get/data_files', api.get_data_files),
+    url(r'api/bernard_dump', api.bernard_dump),
+    url(r'api/bernard_list', api.bernard_list),
     # LUCID tracking
     url(r'tracking/get/position$', lucid_tracking.get_position),
     url(r'tracking/get/line$', lucid_tracking.get_line),
@@ -20,7 +22,3 @@ urlpatterns = patterns('',
     # Default landing page
     url(r'$', views.root)
 )
-
-
-
-
